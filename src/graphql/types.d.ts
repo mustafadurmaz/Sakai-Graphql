@@ -132,4 +132,4 @@ export type Subdivision = {
 export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CountriesQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, capital?: string | null, continent: { __typename?: 'Continent', name: string } }> };
+export type CountriesQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', capital?: string | null, code: string, currency?: string | null, emoji: string, name: string, phone: string, continent: { __typename?: 'Continent', name: string } }> };

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { LayoutProvider } from "../layout/context/layoutcontext";
+import { GQLProvider } from "../graphql";
 
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
@@ -42,7 +43,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         ></link>
       </head>
       <body>
-        <LayoutProvider>{children}</LayoutProvider>
+        <LayoutProvider>
+          <GQLProvider>{children}</GQLProvider>
+        </LayoutProvider>
       </body>
     </html>
   );

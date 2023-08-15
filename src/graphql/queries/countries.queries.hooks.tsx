@@ -5,10 +5,14 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 
 export const CountriesDocument = gql`
-    query Countries @api(name: country) {
+    query Countries {
   countries {
-    name
     capital
+    code
+    currency
+    emoji
+    name
+    phone
     continent {
       name
     }

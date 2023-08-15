@@ -19,7 +19,7 @@ const GQLProvider = ({ children }: { children: ReactNode }) => {
     link: from([
       new MultiAPILink({
         endpoints: {
-          country: countryUrl + "graphql",
+          country: "https://countries.trevorblades.com",
         },
         httpSuffix: "",
         createHttpLink: () => {
