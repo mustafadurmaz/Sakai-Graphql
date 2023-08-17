@@ -43,9 +43,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         ></link>
       </head>
       <body>
-        <LayoutProvider>
-          <GQLProvider>{children}</GQLProvider>
-        </LayoutProvider>
+        <GQLProvider>
+          <LayoutProvider>{children}</LayoutProvider>
+        </GQLProvider>
       </body>
     </html>
   );
