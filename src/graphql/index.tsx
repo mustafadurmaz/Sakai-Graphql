@@ -1,3 +1,5 @@
+'use client';
+
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { MultiAPILink } from "@habx/apollo-multi-endpoint-link";
