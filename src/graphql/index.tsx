@@ -15,13 +15,15 @@ const GQLProvider = ({ children }: { children: ReactNode }) => {
     if (networkError) console.log(`[Network error]: ${networkError}`);
   });
 
-  const countryUrl = process.env.COUNTRY_API as string;
+  const countryUrl = process.env.NEXT_PUBLIC_COUNTRY_API as string;
+  console.log("countryURL: " + countryUrl);
+  
 
   const client = new ApolloClient({
     link: from([
       new MultiAPILink({
         endpoints: {
-          country: "https://countries.trevorblades.com",
+          country: countryUrl,
         },
         httpSuffix: "",
         createHttpLink: () => {
