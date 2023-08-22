@@ -150,8 +150,21 @@ declare namespace Demo {
         date: string;
     };
 
-    //CustomerService
-    type Customer = {
+    //CountryService
+    type Country = {
+        name?: string;
+        capital?: string;
+        code?: string;
+        currency?: string;
+        emoji: string;
+        phone?: string;
+        continent: {
+            name: string;
+        };
+    };
+
+     //CustomerService
+     type Customer = {
         id?: number;
         name?: string;
         country?: ICountryObject;
