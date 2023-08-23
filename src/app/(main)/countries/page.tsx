@@ -24,17 +24,15 @@ import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import { ToggleButton } from "primereact/togglebutton";
 import { Rating } from "primereact/rating";
 
-
 import { InputText } from "primereact/inputtext";
 import { Demo } from "../../../types/types";
 
 import { useCountriesLazyQuery } from "../../../graphql/queries/countries.queries.hooks";
 
 const Countries = () => {
-
   const [countries, setCountries] = useState<Demo.Country[]>([]);
   const [filters1, setFilters1] = useState<DataTableFilterMeta>({});
-  const [loading1, setLoading1] = useState(true);
+  const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(true);
   const [idFrozen, setIdFrozen] = useState(false);
   const [products, setProducts] = useState<Demo.Product[]>([]);
@@ -44,18 +42,22 @@ const Countries = () => {
   >([]);
   const [allExpanded, setAllExpanded] = useState(false);
 
-  const [getCountries, { data:data, loading, error, refetch }] =
+  const [getCountries, { data: data, loading, error, refetch }] =
     useCountriesLazyQuery({
       fetchPolicy: "no-cache",
     });
 
+  
   const handleGetCountries = () => {
+    setLoading1(true);
     getCountries()
       .then((res: any) => {
-        // if (res?.error) {
-        //   throw res.error;
-        // }
+        if (res?.error) {
+          throw res.error;
+        }
         console.log("res", res);
+        setCountries(res.data.countries);
+        setLoading1(false);
       })
       .catch((error: any) => {
         // toast?.current?.show({
@@ -70,7 +72,6 @@ const Countries = () => {
   useEffect(() => {
     handleGetCountries();
   }, []);
-
 
   interface Represenative {
     name: string;
@@ -135,7 +136,6 @@ const Countries = () => {
       </div>
     );
   };
-
 
   const formatDate = (value: Date) => {
     return value.toLocaleDateString("en-US", {
@@ -220,8 +220,6 @@ const Countries = () => {
     );
   };
 
-
-
   const representativeFilterTemplate = (
     options: ColumnFilterElementTemplateOptions
   ) => {
@@ -257,8 +255,6 @@ const Countries = () => {
     );
   };
 
-
-
   const dateFilterTemplate = (options: ColumnFilterElementTemplateOptions) => {
     return (
       <Calendar
@@ -270,7 +266,6 @@ const Countries = () => {
       />
     );
   };
-
 
   const balanceFilterTemplate = (
     options: ColumnFilterElementTemplateOptions
@@ -305,7 +300,6 @@ const Countries = () => {
   const statusItemTemplate = (option: React.ReactNode) => {
     return <span className={`customer-badge status-${option}`}>{option}</span>;
   };
-
 
   const activityFilterTemplate = (
     options: ColumnFilterElementTemplateOptions
@@ -392,8 +386,6 @@ const Countries = () => {
     );
   };
 
-
-
   const header = (
     <Button
       icon={allExpanded ? "pi pi-minus" : "pi pi-plus"}
@@ -403,92 +395,91 @@ const Countries = () => {
     />
   );
 
-
   const header1 = renderHeader1();
 
   return (
     <div className="grid">
-    <div className="col-12">
-      <div className="card">
-        <h5>Filter Menu</h5>
-        <DataTable
-          value={countries}
-          paginator
-          className="p-datatable-gridlines"
-          showGridlines
-          rows={10}
-          dataKey="id"
-          filters={filters1}
-          filterDisplay="menu"
-          loading={loading1}
-          responsiveLayout="scroll"
-          emptyMessage="No customers found."
-          header={header1}
-        >
-          <Column
-            field="name"
-            header="Name"
-            filter
-            filterPlaceholder="Search by name"
-            style={{ minWidth: "12rem" }}
-          />
-          <Column
-            header="Country"
-            filterField="country.name"
-            style={{ minWidth: "12rem" }}
-            body={countryBodyTemplate}
-            filter
-            filterPlaceholder="Search by country"
-            filterClear={filterClearTemplate}
-            filterApply={filterApplyTemplate}
-          />
-          <Column
-            header="Agent"
-            filterField="representative"
-            showFilterMatchModes={false}
-            filterMenuStyle={{ width: "14rem" }}
-            style={{ minWidth: "14rem" }}
-            // body={representativeBodyTemplate}
-            filter
-            filterElement={representativeFilterTemplate}
-          />
-          <Column
-            header="Date"
-            filterField="date"
-            dataType="date"
-            style={{ minWidth: "10rem" }}
-            // body={dateBodyTemplate}
-            filter
-            filterElement={dateFilterTemplate}
-          />
-          <Column
-            header="Balance"
-            filterField="balance"
-            dataType="numeric"
-            style={{ minWidth: "10rem" }}
-            // body={balanceBodyTemplate}
-            filter
-            filterElement={balanceFilterTemplate}
-          />
-          <Column
-            field="status"
-            header="Status"
-            filterMenuStyle={{ width: "14rem" }}
-            style={{ minWidth: "12rem" }}
-            // body={statusBodyTemplate}
-            filter
-            filterElement={statusFilterTemplate}
-          />
-          <Column
-            field="activity"
-            header="Activity"
-            showFilterMatchModes={false}
-            style={{ minWidth: "12rem" }}
-            // body={activityBodyTemplate}
-            filter
-            filterElement={activityFilterTemplate}
-          />
-          <Column
+      <div className="col-12">
+        <div className="card">
+          <h5>Filter Menu</h5>
+          <DataTable
+            value={countries}
+            paginator
+            className="p-datatable-gridlines"
+            showGridlines
+            rows={10}
+            dataKey="id"
+            filters={filters1}
+            filterDisplay="menu"
+            loading={loading1}
+            responsiveLayout="scroll"
+            emptyMessage="No customers found."
+            header={header1}
+          >
+            <Column
+              field="code"
+              header="Code"
+              filter
+              filterPlaceholder="Search by name"
+              style={{ minWidth: "12rem" }}
+            />
+            <Column
+              header="emoji"
+              filterField="Flag"
+              style={{ minWidth: "12rem" }}
+              body={countryBodyTemplate}
+              filter
+              filterPlaceholder="Search by country"
+              filterClear={filterClearTemplate}
+              filterApply={filterApplyTemplate}
+            />
+            <Column
+              header="Name"
+              filterField="name"
+              showFilterMatchModes={false}
+              filterMenuStyle={{ width: "14rem" }}
+              style={{ minWidth: "14rem" }}
+              // body={representativeBodyTemplate}
+              filter
+              filterElement={representativeFilterTemplate}
+            />
+            <Column
+              header="Capital"
+              filterField="capital"
+              // dataType="date"
+              style={{ minWidth: "10rem" }}
+              // body={dateBodyTemplate}
+              filter
+              filterElement={dateFilterTemplate}
+            />
+            <Column
+              header="Continent"
+              filterField="continent.name"
+              // dataType="numeric"
+              style={{ minWidth: "10rem" }}
+              // body={balanceBodyTemplate}
+              filter
+              filterElement={balanceFilterTemplate}
+            />
+            <Column
+              field="currency"
+              header="Currency"
+              filterMenuStyle={{ width: "14rem" }}
+              style={{ minWidth: "12rem" }}
+              // body={statusBodyTemplate}
+              filter
+              filterElement={statusFilterTemplate}
+            />
+            <Column
+              field="phone"
+              header="Phone"
+              showFilterMatchModes={false}
+              style={{ minWidth: "12rem" }}
+              // body={activityBodyTemplate}
+              filter
+              filterElement={activityFilterTemplate}
+            />
+            {/* <Column
             field="verified"
             header="Verified"
             dataType="boolean"
@@ -497,12 +488,12 @@ const Countries = () => {
             // body={verifiedBodyTemplate}
             filter
             filterElement={verifiedFilterTemplate}
-          />
-        </DataTable>
+          /> */}
+          </DataTable>
+        </div>
       </div>
     </div>
-    </div>
-  )
+  );
 };
 
 export default Countries;
