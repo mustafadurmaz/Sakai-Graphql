@@ -16,14 +16,14 @@ const GQLProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const countryUrl = process.env.NEXT_PUBLIC_COUNTRY_API as string;
-  console.log("countryURL: " + countryUrl);
-  
+  const animeUrl= process.env.NEXT_PUBLIC_ANIME_API as string;  
 
   const client = new ApolloClient({
     link: from([
       new MultiAPILink({
         endpoints: {
           country: countryUrl,
+          anime: animeUrl
         },
         httpSuffix: "",
         createHttpLink: () => {
