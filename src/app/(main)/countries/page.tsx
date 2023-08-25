@@ -424,42 +424,32 @@ const Countries = () => {
               style={{ minWidth: "12rem" }}
             />
             <Column
-              header="emoji"
-              filterField="Flag"
+              field="emoji"
+              header="Flag"
+              filter
+              filterPlaceholder="Search by name"
               style={{ minWidth: "12rem" }}
-              body={countryBodyTemplate}
-              filter
-              filterPlaceholder="Search by country"
-              filterClear={filterClearTemplate}
-              filterApply={filterApplyTemplate}
             />
             <Column
+              field="name"
               header="Name"
-              filterField="name"
-              showFilterMatchModes={false}
-              filterMenuStyle={{ width: "14rem" }}
-              style={{ minWidth: "14rem" }}
-              // body={representativeBodyTemplate}
               filter
-              filterElement={representativeFilterTemplate}
+              filterPlaceholder="Search by name"
+              style={{ minWidth: "12rem" }}
             />
             <Column
+              field="capital"
               header="Capital"
-              filterField="capital"
-              // dataType="date"
-              style={{ minWidth: "10rem" }}
-              // body={dateBodyTemplate}
               filter
-              filterElement={dateFilterTemplate}
+              filterPlaceholder="Search by name"
+              style={{ minWidth: "12rem" }}
             />
             <Column
+              field="continent.name"
               header="Continent"
-              filterField="continent.name"
-              // dataType="numeric"
-              style={{ minWidth: "10rem" }}
-              // body={balanceBodyTemplate}
               filter
-              filterElement={balanceFilterTemplate}
+              filterPlaceholder="Search by name"
+              style={{ minWidth: "12rem" }}
             />
             <Column
               field="currency"
