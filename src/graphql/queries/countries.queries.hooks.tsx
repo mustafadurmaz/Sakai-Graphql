@@ -1,24 +1,24 @@
-import * as Types from "../types.d";
+import * as Types from '../types.d';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 
 export const CountriesDocument = gql`
-  query Countries @api(name: country){
-    countries {
-      capital
-      code
-      currency
-      emoji
+    query Countries @api(name: country) {
+  countries {
+    capital
+    code
+    currency
+    emoji
+    name
+    phone
+    continent {
       name
-      phone
-      continent {
-        name
-      }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useCountriesQuery__
@@ -35,35 +35,14 @@ export const CountriesDocument = gql`
  *   },
  * });
  */
-export function useCountriesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    Types.CountriesQuery,
-    Types.CountriesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<Types.CountriesQuery, Types.CountriesQueryVariables>(
-    CountriesDocument,
-    options
-  );
-}
-export function useCountriesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.CountriesQuery,
-    Types.CountriesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    Types.CountriesQuery,
-    Types.CountriesQueryVariables
-  >(CountriesDocument, options);
-}
+export function useCountriesQuery(baseOptions?: Apollo.QueryHookOptions<Types.CountriesQuery, Types.CountriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.CountriesQuery, Types.CountriesQueryVariables>(CountriesDocument, options);
+      }
+export function useCountriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.CountriesQuery, Types.CountriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.CountriesQuery, Types.CountriesQueryVariables>(CountriesDocument, options);
+        }
 export type CountriesQueryHookResult = ReturnType<typeof useCountriesQuery>;
-export type CountriesLazyQueryHookResult = ReturnType<
-  typeof useCountriesLazyQuery
->;
-export type CountriesQueryResult = Apollo.QueryResult<
-  Types.CountriesQuery,
-  Types.CountriesQueryVariables
->;
+export type CountriesLazyQueryHookResult = ReturnType<typeof useCountriesLazyQuery>;
+export type CountriesQueryResult = Apollo.QueryResult<Types.CountriesQuery, Types.CountriesQueryVariables>;
