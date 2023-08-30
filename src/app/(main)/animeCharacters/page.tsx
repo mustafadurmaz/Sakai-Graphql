@@ -27,9 +27,9 @@ import { Rating } from "primereact/rating";
 import { InputText } from "primereact/inputtext";
 import { Demo } from "../../../types/types";
 
-import { useCountriesLazyQuery } from "../../../graphql/queries/countries.queries.hooks";
+import { useNameLazyQuery } from "../../../graphql/queries/animeCharacters.queries.hooks";
 
-const Countries = () => {
+const AnimeCharacters = () => {
   const [countries, setCountries] = useState<Demo.Country[]>([]);
   const [filters1, setFilters1] = useState<DataTableFilterMeta>({});
   const [loading1, setLoading1] = useState(false);
@@ -42,21 +42,21 @@ const Countries = () => {
   >([]);
   const [allExpanded, setAllExpanded] = useState(false);
 
-  const [getCountries, { data: data, loading, error, refetch }] =
-    useCountriesLazyQuery({
+  const [getAnimeCharacters, { data: data, loading, error, refetch }] =
+  useNameLazyQuery({
       fetchPolicy: "no-cache",
     });
 
   
   const handleGetCountries = () => {
     setLoading1(true);
-    getCountries()
+    getAnimeCharacters()
       .then((res: any) => {
         if (res?.error) {
           throw res.error;
         }
         console.log("res", res);
-        setCountries(res.data.countries);
+        // setCountries(res.data.countries);
         setLoading1(false);
       })
       .catch((error: any) => {
@@ -486,4 +486,4 @@ const Countries = () => {
   );
 };
 
-export default Countries;
+export default AnimeCharacters;

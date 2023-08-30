@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 
 export const NameDocument = gql`
-    query Name {
+    query Name @api(name: anime) {
   Page {
     characters {
       name {
