@@ -30,7 +30,7 @@ import { Demo } from "../../../types/types";
 import { useNameLazyQuery } from "../../../graphql/queries/animeCharacters.queries.hooks";
 
 const AnimeCharacters = () => {
-  const [countries, setCountries] = useState<Demo.Country[]>([]);
+  const [characters, setCharacters] = useState<Demo.Anime[]>([]);
   const [filters1, setFilters1] = useState<DataTableFilterMeta>({});
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(true);
@@ -43,11 +43,10 @@ const AnimeCharacters = () => {
   const [allExpanded, setAllExpanded] = useState(false);
 
   const [getAnimeCharacters, { data: data, loading, error, refetch }] =
-  useNameLazyQuery({
+    useNameLazyQuery({
       fetchPolicy: "no-cache",
     });
 
-  
   const handleGetCountries = () => {
     setLoading1(true);
     getAnimeCharacters()
@@ -56,7 +55,7 @@ const AnimeCharacters = () => {
           throw res.error;
         }
         console.log("res", res);
-        // setCountries(res.data.countries);
+        setCharacters(res.data.Page.characters);
         setLoading1(false);
       })
       .catch((error: any) => {
@@ -182,18 +181,10 @@ const AnimeCharacters = () => {
     setGlobalFilterValue1("");
   };
 
-  const countryBodyTemplate = (rowData: Demo.Country) => {
+  const imageTemplate = (rowData: Demo.Anime) => {
     return (
       <React.Fragment>
-        <img
-          alt="flag"
-          src={`/demo/images/flag/flag_placeholder.png`}
-          className={`flag flag-${rowData.code}`}
-          width={30}
-        />
-        <span style={{ marginLeft: ".5em", verticalAlign: "middle" }}>
-          {rowData.name}
-        </span>
+        <img alt="flag" src={`${rowData.image?.medium}`} width={30} />
       </React.Fragment>
     );
   };
@@ -403,7 +394,7 @@ const AnimeCharacters = () => {
         <div className="card">
           <h5>Filter Menu</h5>
           <DataTable
-            value={countries}
+            value={characters}
             paginator
             className="p-datatable-gridlines"
             showGridlines
@@ -417,68 +408,36 @@ const AnimeCharacters = () => {
             header={header1}
           >
             <Column
-              field="code"
-              header="Code"
-              filter
-              filterPlaceholder="Search by name"
-              style={{ minWidth: "12rem" }}
-            />
-            <Column
-              field="emoji"
-              header="Flag"
-              filter
-              filterPlaceholder="Search by name"
-              style={{ minWidth: "12rem" }}
-            />
-            <Column
-              field="name"
+              field="name.full"
               header="Name"
               filter
               filterPlaceholder="Search by name"
               style={{ minWidth: "12rem" }}
             />
             <Column
-              field="capital"
-              header="Capital"
+              field="gender"
+              header="Gender"
               filter
               filterPlaceholder="Search by name"
               style={{ minWidth: "12rem" }}
             />
             <Column
-              field="continent.name"
-              header="Continent"
+              field="age"
+              header="Age"
               filter
               filterPlaceholder="Search by name"
               style={{ minWidth: "12rem" }}
             />
+
             <Column
-              field="currency"
-              header="Currency"
-              filterMenuStyle={{ width: "14rem" }}
-              style={{ minWidth: "12rem" }}
-              // body={statusBodyTemplate}
+              header="Photo"
+              dataType="boolean"
+              bodyClassName="text-center"
+              style={{ minWidth: "8rem" }}
+              body={imageTemplate}
               filter
-              filterElement={statusFilterTemplate}
+              filterElement={verifiedFilterTemplate}
             />
-            <Column
-              field="phone"
-              header="Phone"
-              showFilterMatchModes={false}
-              style={{ minWidth: "12rem" }}
-              // body={activityBodyTemplate}
-              filter
-              filterElement={activityFilterTemplate}
-            />
-            {/* <Column
-            field="verified"
-            header="Verified"
-            dataType="boolean"
-            bodyClassName="text-center"
-            style={{ minWidth: "8rem" }}
-            // body={verifiedBodyTemplate}
-            filter
-            filterElement={verifiedFilterTemplate}
-          /> */}
           </DataTable>
         </div>
       </div>

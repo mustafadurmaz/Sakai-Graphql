@@ -163,6 +163,18 @@ declare namespace Demo {
         };
     };
 
+    //AnimeService
+    type Anime = {
+        age?: string;
+        gender?: string;
+        image?: {
+            medium?: string;
+        };
+        name?:{
+            full?: string;
+        }
+    };
+
      //CustomerService
      type Customer = {
         id?: number;
