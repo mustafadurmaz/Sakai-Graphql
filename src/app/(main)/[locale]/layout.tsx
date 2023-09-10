@@ -29,22 +29,18 @@ interface AppLayoutProps {
 //     </html>
 //   );
 
-  export default async function AppLayout({ children,params: { locale } }: any) {
-    let messages;
-    try {
-      messages = (await import(`../../../messages/${locale}.json`)).default;
-    } catch (error) {
-      notFound();
-    }
-    return (
-      <html lang={locale}>
-//       <body>
-//         <Layout>
-//           <NextIntlClientProvider locale={locale} messages={messages}>
-//             {children}
-//           </NextIntlClientProvider>
-//         </Layout>
-//       </body>
-//     </html>
-    )
+export default async function AppLayout({ children, params: { locale } }: any) {
+  let messages;
+  try {
+    messages = (await import(`../../../messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
+  return (
+    <Layout>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        {children}
+      </NextIntlClientProvider>
+    </Layout>
+  );
 }
