@@ -8,7 +8,8 @@ import { Menu } from "primereact/menu";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ProductService } from "../../../demo/service/ProductService";
 import { LayoutContext } from "../../../layout/context/layoutcontext";
-import Link from "next/link";
+// import Link from "next/link";
+import Link from "next-intl/link";
 import { Demo } from "../../../types/types";
 import { ChartData, ChartOptions } from "chart.js";
 import {useTranslations} from 'next-intl';
@@ -131,6 +132,17 @@ const Dashboard = () => {
       <div className="col-12 lg:col-6 xl:col-3">
         <div className="card mb-0">
           <div className="flex justify-content-between mb-3">
+          <div>
+        <Link href="/" locale="en">
+          In english
+        </Link>{" "}
+        |{" "}
+        <Link href="/" locale="tr">
+          In Turkish
+        </Link>
+        <br />
+        <br />
+      </div>
             <div>
               <span className="block text-500 font-medium mb-3">{t("Orders")}</span>
               <div className="text-900 font-medium text-xl">152</div>

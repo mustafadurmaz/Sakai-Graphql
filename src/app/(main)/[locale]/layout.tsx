@@ -10,6 +10,11 @@ interface AppLayoutProps {
   children: React.ReactNode;
 }
 
+type Props = {
+  children: React.ReactNode;
+  params: {locale: string};
+};
+
 // export default async function AppLayout({ children, params: { locale } }: any) {
 //   let messages;
 //   try {
@@ -29,8 +34,10 @@ interface AppLayoutProps {
 //     </html>
 //   );
 
-export default async function AppLayout({ children, params: { locale } }: any) {
+export default async function AppLayout({ children, params: { locale } }: Props) {
   let messages;
+  console.log(locale);
+  
   try {
     messages = (await import(`../../../messages/${locale}.json`)).default;
   } catch (error) {
