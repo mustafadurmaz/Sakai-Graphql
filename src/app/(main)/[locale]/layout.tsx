@@ -1,4 +1,4 @@
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import Layout from "../../../layout/layout";
 
@@ -34,10 +34,11 @@ type Props = {
 //     </html>
 //   );
 
+
 export default async function AppLayout({ children, params: { locale } }: Props) {
   let messages;
   console.log(locale);
-  
+
   try {
     messages = (await import(`../../../messages/${locale}.json`)).default;
   } catch (error) {

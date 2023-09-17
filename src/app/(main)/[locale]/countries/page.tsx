@@ -25,9 +25,9 @@ import { ToggleButton } from "primereact/togglebutton";
 import { Rating } from "primereact/rating";
 
 import { InputText } from "primereact/inputtext";
-import { Demo } from "../../../types/types";
+import { Demo } from "../../../../types/types";
 
-import { useCountriesLazyQuery } from "../../../graphql/queries/countries.queries.hooks";
+import { useCountriesLazyQuery } from "../../../../graphql/queries/countries.queries.hooks";
 
 const Countries = () => {
   const [countries, setCountries] = useState<Demo.Country[]>([]);
