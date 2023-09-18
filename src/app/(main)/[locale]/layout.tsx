@@ -12,7 +12,7 @@ interface AppLayoutProps {
 
 type Props = {
   children: React.ReactNode;
-  params: {locale: string};
+  params: { locale: string };
 };
 
 // export default async function AppLayout({ children, params: { locale } }: any) {
@@ -34,8 +34,10 @@ type Props = {
 //     </html>
 //   );
 
-
-export default async function AppLayout({ children, params: { locale } }: Props) {
+export default async function AppLayout({
+  children,
+  params: { locale },
+}: Props) {
   let messages;
   console.log(locale);
 
@@ -45,10 +47,14 @@ export default async function AppLayout({ children, params: { locale } }: Props)
     notFound();
   }
   return (
-    <Layout>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        {children}
-      </NextIntlClientProvider>
-    </Layout>
+    <html lang={locale}>
+      <body>
+        <Layout>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </Layout>
+      </body>
+    </html>
   );
 }
