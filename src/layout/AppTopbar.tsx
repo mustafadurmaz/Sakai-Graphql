@@ -63,6 +63,13 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
         })}
       >
         <Link href="/" locale="en">
+          In english
+        </Link>{" "}
+        |{" "}
+        <Link href="/" locale="tr">
+          In Turkish
+        </Link>
+        <Link href="/" locale="en">
         <button type="button" className="p-link layout-topbar-button">
           EN
         </button>
